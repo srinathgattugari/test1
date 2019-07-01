@@ -1,26 +1,10 @@
 ---
 # Placeholder for now as the Jenkins Master is running inside a docker container.
-- name: install packages
-  apt:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - openjdk-8-jdk=8u212-b03-0ubuntu1.16.04.1
-    - git=1:2.7.4-0ubuntu1.6
-    - xmlstarlet
-
 - name: copy service and timer file
   copy:
     src: "{{ item }}"
     dest: /etc/systemd/system/
     mode: 0644
   with_items:
-    - jenkins.service
-    - jenkins_cleanup.service
-    - jenkins_cleanup.timer
-
-- name: copy filesystem cleanup script
-  copy:
-    src: workspace_and_build_cleanup.sh
-    dest: /opt/workspace_and_build_cleanup.sh
-    mode: 0755
+    - jenkins-docker.service
+    - override.conf
