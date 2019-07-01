@@ -1,7 +1,0 @@
-[Unit]
-Description=Cleanup the Jenkins workspace and old build
-[Service]
-Type=simple
-ExecStart=/opt/workspace_and_build_cleanup.sh
-[Install]
-WantedBy=multi-user.target
