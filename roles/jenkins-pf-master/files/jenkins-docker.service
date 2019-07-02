@@ -9,7 +9,6 @@ RestartSec=30s
 
 ExecStartPre=-/bin/bash -c "rm -rf ${JENKINS_HOME_DIR}/init.groovy.d/ || true"
 ExecStart=/usr/bin/docker run -d \
-              --network=host \
               -v $JENKINS_HOME_DIR:/var/jenkins_home \
               --name jenkins-pf
               --env ENV=$ENV \
