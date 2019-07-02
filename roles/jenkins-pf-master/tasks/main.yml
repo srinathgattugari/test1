@@ -1,10 +1,28 @@
 ---
-# Placeholder for now as the Jenkins Master is running inside a docker container.
-- name: copy service and timer file
+# Role to setup Jenkins running as daemon
+- hosts: localhost
+  vars_files:
+    - ../vars/ldap.yml
+  
+  environment:
+    LDAP_PASSWORD: "{{ VAULT_LDAP_PASSWORD }}"
+
+- name: Create jenkins-docker.service.d directory in path /etc/systemd/system/ if it doesn't exist.
+  file:
+    path: /etc/systemd/system/jenkins-docker.service.d
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Copy jenkins-docker.service file /etc/systemd/system/ directory.
   copy:
-    src: "{{ item }}"
+    src: jenkins-docker.service
     dest: /etc/systemd/system/
     mode: 0644
-  with_items:
-    - jenkins-docker.service
-    - override.conf
+
+- name: override.conf file /etc/systemd/system/jenkins-docker.service.d directory.
+  copy:
+    src: override.conf
+    dest: /etc/systemd/system/jenkins-docker.service.d/
+    mode: 0644
