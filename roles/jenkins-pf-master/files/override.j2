@@ -4,7 +4,12 @@ Description=Jenkins-Parkfarm Master container
 [Service]
 Environment="ENV=non-production"
 
-Environment="LDAP_PASSWORD={{ vault_ldap_password }}" 
+Environment="LDAP_PASSWORD={{ vault_ldap_password }}"
+
+Environment="JENKINS_HOST_PORT=8080"
+Environment="JENKINS_CONTAINER_PORT=8080"
+Environment="JENKINS_JNLP_HOST_PORT=50000"
+Environment="JENKINS_JNLP_CONTAINER_PORT=50000"
 
 Environment="JENKINS_HOME_DIR=/opt/jenkins_home"
 Environment="JENKINS_IMAGE_NAME=jenkins-pf-test"
