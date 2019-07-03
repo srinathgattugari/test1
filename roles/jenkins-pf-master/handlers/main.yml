@@ -1,4 +1,2 @@
 ---
 # handlers file for jenkins-pf-master
-- name: reload systemctl
-  command: systemctl daemon-reload

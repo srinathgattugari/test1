@@ -4,13 +4,14 @@ Requires=docker.service
 After=docker.service
 
 [Service]
+Type=simple
+TimeoutStartSec=0
 Restart=on-failure
 RestartSec=30s
-
 ExecStartPre=-/bin/bash -c "rm -rf ${JENKINS_HOME_DIR}/init.groovy.d/ || true"
 ExecStart=/usr/bin/docker run -d \
               -v $JENKINS_HOME_DIR:/var/jenkins_home \
-              --name jenkins-pf
+              --name jenkins-pf \
               --env ENV=$ENV \
               --env URL_SEED_JOBS_REPO=$URL_SEED_JOBS_REPO \
               --env LDAP_URL=$LDAP_URL \
