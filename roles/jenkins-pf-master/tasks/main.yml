@@ -19,10 +19,14 @@
       copy:
         src: jenkins-pf.service
         dest: /etc/systemd/system/
+        owner: root
+        group: root
         mode: 0644
-
-    - name: override.conf file /etc/systemd/system/jenkins-pd.service.d directory.
-      copy:
-        src: override.conf
-        dest: /etc/systemd/system/jenkins-pf.service.d/
-        mode: 0644
+    
+    - name: Template a override.j2 to /etc/systemd/system/jenkins-pd.service.d directory.
+      template:
+        src: override.j2
+        dest: /etc/systemd/system/jenkins-pd.service.d/override.conf
+        owner: root
+        group: root
+        mode: 0640
