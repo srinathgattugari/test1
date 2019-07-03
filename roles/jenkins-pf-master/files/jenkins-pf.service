@@ -1,0 +1,38 @@
+[Unit]
+Description=Jenkins Master container
+Requires=docker.service
+After=docker.service
+
+[Service]
+Type=simple
+TimeoutStartSec=0
+Restart=on-failure
+RestartSec=30s
+ExecStartPre=-/bin/bash -c "if [[ $(docker ps -a -f 'name=%p') ]]; then docker rm -f %p; fi"
+ExecStartPre=-/bin/bash -c "rm -r ${JENKINS_HOME_ON_HOST}/init.groovy.d/* || true"
+ExecStartPre=-/bin/bash -c "rm ${JENKINS_HOME_ON_HOST}/jenkins.properties || true"
+ExecStartPre=-/bin/bash -c "rm ${JENKINS_HOME_ON_HOST}/slaves.properties || true"
+ExecStart=/usr/bin/docker run -d \
+              -v $JENKINS_HOME_DIR:/var/jenkins_home \
+              --name jenkins-pf \
+              --env ENV=$ENV \
+              --env URL_SEED_JOBS_REPO=$URL_SEED_JOBS_REPO \
+              --env LDAP_URL=$LDAP_URL \
+              --env LDAP_ROOT_DN=$LDAP_ROOT_DN \
+              --env LDAP_USERNAME=$LDAP_USERNAME \
+              --env LDAP_USER_SEARCH_BASE=$LDAP_USER_SEARCH_BASE \
+              --env LDAP_USER_SEARCH=$LDAP_USER_SEARCH \
+              --env LDAP_GROUP_SEARCH_BASE=$LDAP_GROUP_SEARCH_BASE \
+              --env LDAP_GROUP_SEARCH_FILTER=$LDAP_GROUP_SEARCH_FILTER \
+              --env LDAP_GROUP_ADMIN=$LDAP_GROUP_ADMIN \
+              --env LDAP_PASSWORD \
+              --env SMTP_SYSADMIN_EMAIL=$SMTP_SYSADMIN_EMAIL \
+              --env SMTP_HOST=$SMTP_HOST \
+              --env SMTP_PORT=$SMTP_PORT \
+              -p 8080:8080 \
+              -p 50000:50000 \
+              $JENKINS_IMAGE_NAME:$JENKINS_IMAGE_VER
+ExecStop=/bin/bash -c "if [[ $(docker ps -a -f 'name=%p') ]]; then docker stop %p; fi"
+
+[Install]
+WantedBy=multi-user.target
