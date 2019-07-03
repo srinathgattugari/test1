@@ -7,7 +7,7 @@
     LDAP_PASSWORD: "{{ VAULT_LDAP_PASSWORD }}"
 
   tasks:
-    - name: Create jenkins-pf.service.d directory in path /etc/systemd/system/ if it doesn't exist.
+    - name: Creating jenkins-pf.service.d directory in path /etc/systemd/system/ if it doesn't exist.
       file:
         path: /etc/systemd/system/jenkins-pf.service.d
         state: directory
@@ -15,7 +15,7 @@
         group: root
         mode: 0755
 
-    - name: Copy jenkins-docker.service file /etc/systemd/system/ directory.
+    - name: Copying jenkins-docker.service file in /etc/systemd/system/ directory.
       copy:
         src: jenkins-pf.service
         dest: /etc/systemd/system/
@@ -23,10 +23,10 @@
         group: root
         mode: 0644
     
-    - name: Template a override.j2 to /etc/systemd/system/jenkins-pd.service.d directory.
+    - name: Templating override.j2 to /etc/systemd/system/jenkins-pd.service.d directory.
       template:
         src: override.j2
-        dest: /etc/systemd/system/jenkins-pd.service.d/override.conf
+        dest: /etc/systemd/system/jenkins-pf.service.d/override.conf
         owner: root
         group: root
         mode: 0640
