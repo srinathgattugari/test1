@@ -25,7 +25,7 @@ ExecStart=/usr/bin/docker run -d \
               --env LDAP_GROUP_SEARCH_BASE=$LDAP_GROUP_SEARCH_BASE \
               --env LDAP_GROUP_SEARCH_FILTER=$LDAP_GROUP_SEARCH_FILTER \
               --env LDAP_GROUP_ADMIN=$LDAP_GROUP_ADMIN \
-              --env LDAP_PASSWORD \
+              --env LDAP_PASSWORD=$LDAP_PASSWORD \
               --env SMTP_SYSADMIN_EMAIL=$SMTP_SYSADMIN_EMAIL \
               --env SMTP_HOST=$SMTP_HOST \
               --env SMTP_PORT=$SMTP_PORT \
