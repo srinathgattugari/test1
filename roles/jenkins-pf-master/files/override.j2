@@ -4,21 +4,9 @@ Description=Jenkins master service
 [Service]
 Environment=ENV='non-production'
 
-Environment=LDAP_URL='ldap://hs001dc02-01.argosretailgroup.com:3268'
-Environment=LDAP_ROOT_DN='dc=argosretailgroup,dc=com'
-Environment=LDAP_USERNAME='cn=SRV-Jenkins-BINDUser,ou=IT Support,ou=Users,ou=Accenture,ou=Contractors,dc=argosretailgroup,dc=com'
-Environment=LDAP_USER_SEARCH_BASE=''
-Environment=LDAP_USER_SEARCH='sAMAccountName={0}'
-Environment=LDAP_GROUP_SEARCH_BASE='ou=Groups,ou=Accenture,ou=Contractors'
-Environment=LDAP_GROUP_SEARCH_FILTER='(&(cn={0})(objectclass=group))'
-Environment=LDAP_GROUP_ADMIN='Accenture Jenkins DevArch Admins'
 Environment=LDAP_PASSWORD='{{ vault_ldap_password }}' 
 
 Environment=JENKINS_HOME_DIR='/opt/jenkins_home'
 Environment=JENKINS_IMAGE_NAME='jenkins-pf-test'
 Environment=JENKINS_IMAGE_VER='1.0'
 Environment=URL_SEED_JOBS_REPO='ssh://git@gitlab.deveng.systems:2222/Devops/seed-jobs-pf-non-prod.git'
-
-Environment=SMTP_SYSADMIN_EMAIL='suyash.b.gupta@accenture.com'
-Environment=SMTP_HOST='smtprelay.argosretailgroup.com'
-Environment=SMTP_PORT='25
