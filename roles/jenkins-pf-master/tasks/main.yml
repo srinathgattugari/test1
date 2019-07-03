@@ -7,9 +7,9 @@
   environment:
     LDAP_PASSWORD: "{{ VAULT_LDAP_PASSWORD }}"
 
-- name: Create jenkins-docker.service.d directory in path /etc/systemd/system/ if it doesn't exist.
+- name: Create jenkins-pf.service.d directory in path /etc/systemd/system/ if it doesn't exist.
   file:
-    path: /etc/systemd/system/jenkins-docker.service.d
+    path: /etc/systemd/system/jenkins-pf.service.d
     state: directory
     owner: root
     group: root
@@ -17,12 +17,12 @@
 
 - name: Copy jenkins-docker.service file /etc/systemd/system/ directory.
   copy:
-    src: jenkins-docker.service
+    src: jenkins-pf.service
     dest: /etc/systemd/system/
     mode: 0644
 
-- name: override.conf file /etc/systemd/system/jenkins-docker.service.d directory.
+- name: override.conf file /etc/systemd/system/jenkins-pd.service.d directory.
   copy:
     src: override.conf
-    dest: /etc/systemd/system/jenkins-docker.service.d/
+    dest: /etc/systemd/system/jenkins-pf.service.d/
     mode: 0644
