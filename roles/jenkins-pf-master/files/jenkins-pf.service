@@ -13,8 +13,8 @@ ExecStartPre=-/bin/bash -c "rm ${JENKINS_HOME_DIR}/jenkins.properties || true"
 ExecStartPre=-/bin/bash -c "rm ${JENKINS_HOME_DIR}/slaves.properties || true"
 ExecStart=/usr/bin/docker run \
             --name %p \
-            --publish 8080:8080 \
-            --publish 50000:50000 \
+            --publish ${JENKINS_HOST_PORT}:${JENKINS_CONTAINER_PORT} \
+            --publish ${JENKINS_JNLP_HOST_PORT}:${JENKINS_JNLP_CONTAINER_PORT} \
             --volume ${JENKINS_HOME_DIR}:/var/jenkins_home \
             --env ENV=${ENV} \
             --env URL_SEED_JOBS_REPO=${URL_SEED_JOBS_REPO} \
