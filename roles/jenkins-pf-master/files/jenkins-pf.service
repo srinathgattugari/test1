@@ -4,7 +4,6 @@ Requires=docker.service
 After=docker.service
 
 [Service]
-Type=simple
 TimeoutStartSec=0
 RestartSec=30s
 ExecStartPre=-/bin/bash -c "if [[ $(docker ps -a -f 'name=%p') ]]; then docker rm -f %p; fi"
