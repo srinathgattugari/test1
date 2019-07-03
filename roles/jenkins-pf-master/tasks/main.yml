@@ -3,8 +3,6 @@
 - hosts: localhost
   vars_files:
     - ../vars/ldap.yml
-  environment:
-    LDAP_PASSWORD: "{{ VAULT_LDAP_PASSWORD }}"
 
   tasks:
     - name: Creating jenkins-pf.service.d directory in path /etc/systemd/system/ if it doesn't exist.
