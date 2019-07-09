@@ -3,6 +3,7 @@ Description=Jenkins-Parkfarm Master container
 
 [Service]
 Environment="ENV=non-production"
+Environment="JAVA_OPTS="-Dhttp.proxyHost=172.16.68.95 -Dhttp.proxyPort=3128 -Dhttps.proxyHost=172.16.68.95 -Dhttps.proxyPort=3128""
 
 Environment="LDAP_PASSWORD={{ vault_ldap_password }}"
 
@@ -10,8 +11,8 @@ Environment="JENKINS_HOST_PORT=8080"
 Environment="JENKINS_CONTAINER_PORT=8080"
 Environment="JENKINS_JNLP_HOST_PORT=50000"
 Environment="JENKINS_JNLP_CONTAINER_PORT=50000"
-
 Environment="JENKINS_HOME_DIR=/var/jenkins_home"
 Environment="JENKINS_IMAGE_NAME=jenkins-pf-test"
 Environment="JENKINS_IMAGE_VER=1.0"
+
 Environment="URL_SEED_JOBS_REPO=ssh://git@gitlab.deveng.systems:2222/Devops/seed-jobs-pf-non-prod.git"
