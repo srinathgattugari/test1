@@ -18,6 +18,7 @@ ExecStart=/usr/bin/docker run \
             --publish ${JENKINS_JNLP_HOST_PORT}:${JENKINS_JNLP_CONTAINER_PORT} \
             --volume ${JENKINS_HOME_DIR}:/var/jenkins_home \
             --env ENV=${ENV} \
+            --env JAVA_OPTS=${JAVA_OPTS} \
             --env URL_SEED_JOBS_REPO=${URL_SEED_JOBS_REPO} \
             --env LDAP_PASSWORD=${LDAP_PASSWORD} \
             ${JENKINS_IMAGE_NAME}:${JENKINS_IMAGE_VER}
