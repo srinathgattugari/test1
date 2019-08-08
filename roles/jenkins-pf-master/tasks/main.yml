@@ -3,9 +3,6 @@
 - hosts: localhost
   vars_files:
     - ../vars/ldap.yml
-    - ../vars/jenkins-ci-op
-    - ../vars/.password
-    - ../vars/.passwordiccmb8
 
   tasks:
     - name: Creating .ssh directory at /var/jenkins_home if it doesn't exist.
