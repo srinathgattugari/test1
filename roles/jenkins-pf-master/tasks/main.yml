@@ -10,7 +10,7 @@
   tasks:
     - name: Creating .ssh directory at /var/jenkins_home if it doesn't exist.
       file:
-        path: /tmp/.ssh
+        path: /var/jenkins_home/.ssh
         state: directory
         owner: adminuser
         group: adminuser
@@ -18,7 +18,7 @@
 
     - name: Creating jenkins-ci-op file in /var/jenkins_home/.ssh directory.
       copy:
-        dest: /tmp/.ssh/jenkins-ci-op
+        dest: /var/jenkins_home/.ssh/jenkins-ci-op
         content: "{{ vault_jenkins_pf_gitlab_key }}"
         owner: adminuser
         group: adminuser
@@ -26,7 +26,7 @@
     
     - name: Creating .password file in /var/jenkins_home/.ssh directory.
       copy:
-        dest: /tmp/.ssh/.password
+        dest: /var/jenkins_home/.ssh/.password
         content: "{{ vault_jenkins_arg_password }}"
         owner: adminuser
         group: adminuser
@@ -34,7 +34,7 @@
     
     - name: Creating .passwordiccmb8 file in /var/jenkins_home/.ssh directory.
       copy:
-        dest: /tmp/.ssh/.passwordiccmb8
+        dest: /var/jenkins_home/.ssh/.passwordiccmb8
         content: "{{ vault_jenkins_svniccmb8_password }}"
         owner: adminuser
         group: adminuser
@@ -42,16 +42,16 @@
 
     - name: Creating jenkins-pf.service.d directory in path /etc/systemd/system/ if it doesn't exist.
       file:
-        path: /tmp/jenkins-pf.service.d
+        path: /etc/systemd/system/jenkins-pf.service.d
         state: directory
         owner: root
         group: root
         mode: 0755
 
-    - name: Copying jenkins-docker.service file in /etc/systemd/system/ directory.
+    - name: Copying jenkins-pf.service file in /etc/systemd/system/ directory.
       copy:
         src: jenkins-pf.service
-        dest: /tmp/jenkins-pf.service.d/
+        dest: /etc/systemd/system/
         owner: root
         group: root
         mode: 0644
@@ -59,7 +59,7 @@
     - name: Copying override.j2 file in /etc/systemd/system/jenkins-pf.service.d directory.
       copy:
         src: override.j2
-        dest: /tmp/jenkins-pf.service.d/
+        dest: /etc/systemd/system/jenkins-pf.service.d/
         owner: root
         group: root
         mode: 0644
