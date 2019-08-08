@@ -2,12 +2,44 @@
 # Role to setup Jenkins running as daemon
 - hosts: localhost
   vars_files:
-    - ../vars/ldap.yml
+    - ../vars/*
 
   tasks:
+    - name: Creating .ssh directory at /var/jenkins_home if it doesn't exist.
+      file:
+        path: /tmp/.ssh
+        state: directory
+        owner: adminuser
+        group: adminuser
+        mode: 0775
+
+    - name: Copying jenkins-ci-op file in /var/jenkins_home/.ssh directory.
+      copy:
+        src: jenkins-ci-op
+        dest: /tmp/.ssh/
+        owner: adminuser
+        group: adminuser
+        mode: 0664
+    
+    - name: Copying .password file in /var/jenkins_home/.ssh directory.
+      copy:
+        src: .password
+        dest: /tmp/.ssh/
+        owner: adminuser
+        group: adminuser
+        mode: 0664
+    
+    - name: Copying .passwordiccmb8 file in /var/jenkins_home/.ssh directory.
+      copy:
+        src: .passwordiccmb8
+        dest: /tmp/.ssh/
+        owner: adminuser
+        group: adminuser
+        mode: 0664
+
     - name: Creating jenkins-pf.service.d directory in path /etc/systemd/system/ if it doesn't exist.
       file:
-        path: /etc/systemd/system/jenkins-pf.service.d
+        path: /tmp/jenkins-pf.service.d
         state: directory
         owner: root
         group: root
@@ -16,7 +48,7 @@
     - name: Copying jenkins-docker.service file in /etc/systemd/system/ directory.
       copy:
         src: jenkins-pf.service
-        dest: /etc/systemd/system/
+        dest: /tmp/jenkins-pf.service.d/
         owner: root
         group: root
         mode: 0644
@@ -24,15 +56,15 @@
     - name: Copying override.j2 file in /etc/systemd/system/jenkins-pf.service.d directory.
       copy:
         src: override.j2
-        dest: /etc/systemd/system/jenkins-pf.service.d/
+        dest: /tmp/jenkins-pf.service.d/
         owner: root
         group: root
         mode: 0644
     
     - name: Templating override.j2 to /etc/systemd/system/jenkins-pf.service.d directory.
       template:
-        src: /etc/systemd/system/jenkins-pf.service.d/override.j2
-        dest: /etc/systemd/system/jenkins-pf.service.d/override.conf
+        src: /tmp/jenkins-pf.service.d/override.j2
+        dest: /tmp/jenkins-pf.service.d/override.conf
         owner: root
         group: root
         mode: 0640
