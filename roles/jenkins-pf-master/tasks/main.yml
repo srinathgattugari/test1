@@ -16,13 +16,13 @@
         group: adminuser
         mode: 0775
 
-    - name: Creating jenkins-ci-op file in /var/jenkins_home/.ssh directory.
-      copy:
-        dest: /tmp/.ssh/jenkins-ci-op
-        content: "{{ vault_jenkins_pf_gitlab_key }}"
-        owner: adminuser
-        group: adminuser
-        mode: 0664
+    #- name: Creating jenkins-ci-op file in /var/jenkins_home/.ssh directory.
+      #copy:
+        #dest: /tmp/.ssh/jenkins-ci-op
+        #content: "{{ vault_jenkins_pf_gitlab_key }}"
+        #owner: adminuser
+        #group: adminuser
+        #mode: 0664
     
     - name: Creating .password file in /var/jenkins_home/.ssh directory.
       copy:
