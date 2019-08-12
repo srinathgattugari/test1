@@ -14,7 +14,7 @@
         state: directory
         owner: adminuser
         group: adminuser
-        mode: 0775
+        mode: 0755
 
     - name: Creating jenkins-ci-op file in /var/jenkins_home/.ssh directory.
       copy:
@@ -22,7 +22,7 @@
         content: "{{ vault_jenkins_pf_gitlab_key }}"
         owner: adminuser
         group: adminuser
-        mode: 0664
+        mode: 0600
     
     - name: Creating .password file in /var/jenkins_home/.ssh directory.
       copy:
@@ -30,7 +30,7 @@
         content: "{{ vault_jenkins_arg_password }}"
         owner: adminuser
         group: adminuser
-        mode: 0664
+        mode: 0600
     
     - name: Creating .passwordiccmb8 file in /var/jenkins_home/.ssh directory.
       copy:
@@ -38,7 +38,7 @@
         content: "{{ vault_jenkins_svniccmb8_password }}"
         owner: adminuser
         group: adminuser
-        mode: 0664
+        mode: 0600
 
     - name: Creating jenkins-pf.service.d directory in path /etc/systemd/system/ if it doesn't exist.
       file:
@@ -70,4 +70,4 @@
         dest: /tmp/jenkins-pf.service.d/override.conf
         owner: root
         group: root
-        mode: 0640
+        mode: 0600
