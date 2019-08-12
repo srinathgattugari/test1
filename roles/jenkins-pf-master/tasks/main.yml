@@ -14,7 +14,7 @@
         state: directory
         owner: adminuser
         group: adminuser
-        mode: 0600
+        mode: 0755
 
     - name: Creating jenkins-ci-op file in /var/jenkins_home/.ssh directory.
       copy:
@@ -70,4 +70,4 @@
         dest: /tmp/jenkins-pf.service.d/override.conf
         owner: root
         group: root
-        mode: 0640
+        mode: 0600
