@@ -2,7 +2,7 @@
 Description=Jenkins-Parkfarm Non-Production Master container
 
 [Service]
-Environment="ENV=sandbox"
+Environment="ENV=non-production"
 Environment="JAVA_OPTS="-Dhttp.proxyHost=172.16.68.95 -Dhttp.proxyPort=3128 -Dhttps.proxyHost=172.16.68.95 -Dhttps.proxyPort=3128""
 
 Environment="LDAP_PASSWORD={{ vault_ldap_password }}"
