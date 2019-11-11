@@ -12,6 +12,7 @@ ExecStartPre=-/bin/bash -c "rm -r ${JENKINS_HOME_DIR}/init.groovy.d/* || true"
 ExecStartPre=-/bin/bash -c "rm ${JENKINS_HOME_DIR}/jenkins.properties || true"
 ExecStartPre=-/bin/bash -c "rm ${JENKINS_HOME_DIR}/slaves.properties || true"
 ExecStartPre=-/bin/bash -c "rm ${JENKINS_HOME_DIR}/ldap.properties || true"
+ExecStartPre=-/bin/bash -c "rm ${JENKINS_HOME_DIR}/log.properties || true"
 ExecStart=/usr/bin/docker run \
             --name %p \
             --publish ${JENKINS_HOST_PORT}:${JENKINS_CONTAINER_PORT} \
