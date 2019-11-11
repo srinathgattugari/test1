@@ -3,8 +3,43 @@
 - hosts: localhost
   vars_files:
     - ../vars/ldap.yml
+    - ../vars/jenkins-ci-op.yml
+    - ../vars/password.yml
+    - ../vars/passwordiccmb8.yml
 
   tasks:
+    - name: Creating .ssh directory at /var/jenkins_home if it doesn't exist.
+      file:
+        path: /var/jenkins_home/.ssh
+        state: directory
+        owner: adminuser
+        group: adminuser
+        mode: 0755
+
+    - name: Creating jenkins-ci-op file in /var/jenkins_home/.ssh directory.
+      copy:
+        dest: /var/jenkins_home/.ssh/jenkins-ci-op
+        content: "{{ vault_jenkins_pf_gitlab_key }}"
+        owner: adminuser
+        group: adminuser
+        mode: 0600
+    
+    - name: Creating .password file in /var/jenkins_home/.ssh directory.
+      copy:
+        dest: /var/jenkins_home/.ssh/.password
+        content: "{{ vault_jenkins_arg_password }}"
+        owner: adminuser
+        group: adminuser
+        mode: 0600
+    
+    - name: Creating .passwordiccmb8 file in /var/jenkins_home/.ssh directory.
+      copy:
+        dest: /var/jenkins_home/.ssh/.passwordiccmb8
+        content: "{{ vault_jenkins_svniccmb8_password }}"
+        owner: adminuser
+        group: adminuser
+        mode: 0600
+
     - name: Creating jenkins-pf.service.d directory in path /etc/systemd/system/ if it doesn't exist.
       file:
         path: /etc/systemd/system/jenkins-pf.service.d
@@ -13,7 +48,7 @@
         group: root
         mode: 0755
 
-    - name: Copying jenkins-docker.service file in /etc/systemd/system/ directory.
+    - name: Copying jenkins-pf.service file in /etc/systemd/system/ directory.
       copy:
         src: jenkins-pf.service
         dest: /etc/systemd/system/
@@ -35,4 +70,4 @@
         dest: /etc/systemd/system/jenkins-pf.service.d/override.conf
         owner: root
         group: root
-        mode: 0640
+        mode: 0600
