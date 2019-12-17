@@ -31,6 +31,14 @@
         owner: adminuser
         group: adminuser
         mode: 0600
+
+    - name: Creating .passwordnexus file in /var/jenkins_home/.ssh directory.
+      copy:
+        dest: /var/jenkins_home/.ssh/.passwordnexus
+        content: "{{ vault_nexus_password }}"
+        owner: adminuser
+        group: adminuser
+        mode: 0600
     
     - name: Creating .passwordiccmb8 file in /var/jenkins_home/.ssh directory.
       copy:
